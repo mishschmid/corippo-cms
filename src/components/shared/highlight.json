@@ -1,0 +1,45 @@
+{
+  "collectionName": "components_shared_highlights",
+  "info": {
+    "displayName": "Highlight",
+    "icon": "star",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "Name": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "Slug": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "Title": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "Description": {
+      "type": "text",
+      "required": true,
+      "maxLength": 200
+    },
+    "HeaderImage": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images",
+        "videos"
+      ]
+    },
+    "Category": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    }
+  }
+}
