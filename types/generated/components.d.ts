@@ -80,18 +80,6 @@ export interface SharedSeo extends Struct.ComponentSchema {
   };
 }
 
-export interface SharedSlider extends Struct.ComponentSchema {
-  collectionName: 'components_shared_sliders';
-  info: {
-    description: '';
-    displayName: 'Slider';
-    icon: 'address-book';
-  };
-  attributes: {
-    files: Schema.Attribute.Media<'images', true>;
-  };
-}
-
 declare module '@strapi/strapi' {
   export module Public {
     export interface ComponentSchemas {
@@ -100,7 +88,6 @@ declare module '@strapi/strapi' {
       'shared.quote': SharedQuote;
       'shared.rich-text': SharedRichText;
       'shared.seo': SharedSeo;
-      'shared.slider': SharedSlider;
     }
   }
 }
