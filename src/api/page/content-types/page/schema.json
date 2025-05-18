@@ -27,6 +27,10 @@
     "Title": {
       "type": "string",
       "required": true
+    },
+    "Slug": {
+      "type": "uid",
+      "required": true
     }
   }
 }
