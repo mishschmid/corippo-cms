@@ -1,11 +1,15 @@
 {
-    "collectionName": "components_shared_highlights",
+    "kind": "collectionType",
+    "collectionName": "highlights",
     "info": {
+        "singularName": "highlight",
+        "pluralName": "highlights",
         "displayName": "Highlight",
-        "icon": "star",
         "description": ""
     },
-    "options": {},
+    "options": {
+        "draftAndPublish": true
+    },
     "attributes": {
         "name": {
             "type": "string",
@@ -19,22 +23,22 @@
         },
         "title": {
             "type": "string",
-            "required": true,
-            "unique": true
+            "required": true
         },
         "description": {
             "type": "text",
-            "required": true,
-            "maxLength": 200
+            "required": true
         },
         "headerImage": {
-            "type": "media",
-            "multiple": false,
-            "required": true,
             "allowedTypes": [
                 "images",
-                "videos"
-            ]
+                "files",
+                "videos",
+                "audios"
+            ],
+            "type": "media",
+            "multiple": false,
+            "required": true
         },
         "categories": {
             "type": "relation",

@@ -8,23 +8,24 @@ export interface SharedHighlight extends Struct.ComponentSchema {
     icon: 'star';
   };
   attributes: {
-    Category: Schema.Attribute.String &
-      Schema.Attribute.Required &
-      Schema.Attribute.Unique;
-    Description: Schema.Attribute.Text &
+    categories: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::category.category'
+    >;
+    description: Schema.Attribute.Text &
       Schema.Attribute.Required &
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 200;
       }>;
-    HeaderImage: Schema.Attribute.Media<'images' | 'videos'> &
+    headerImage: Schema.Attribute.Media<'images' | 'videos'> &
       Schema.Attribute.Required;
-    Name: Schema.Attribute.String &
+    name: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.Unique;
-    Slug: Schema.Attribute.String &
+    slug: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.Unique;
-    Title: Schema.Attribute.String &
+    title: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.Unique;
   };

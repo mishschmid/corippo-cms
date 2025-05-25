@@ -11,7 +11,7 @@
         "draftAndPublish": true
     },
     "attributes": {
-        "PageBlocks": {
+        "pageBlocks": {
             "type": "dynamiczone",
             "components": [
                 "shared.highlight",
@@ -19,18 +19,23 @@
             ],
             "required": false
         },
-        "SEO": {
+        "seo": {
             "type": "component",
             "repeatable": false,
             "component": "shared.seo"
         },
-        "Title": {
+        "title": {
             "type": "string",
             "required": true
         },
-        "Slug": {
+        "slug": {
             "type": "uid",
             "required": true
+        },
+        "blocks": {
+            "type": "relation",
+            "relation": "oneToMany",
+            "target": "api::block.block"
         }
     }
 }

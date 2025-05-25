@@ -1,0 +1,43 @@
+{
+  "kind": "collectionType",
+  "collectionName": "rusticos",
+  "info": {
+    "singularName": "rustico",
+    "pluralName": "rusticos",
+    "displayName": "Rustico",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "owner": {
+      "type": "string"
+    },
+    "assets": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "videos"
+      ]
+    },
+    "description": {
+      "type": "blocks"
+    },
+    "isActive": {
+      "type": "boolean",
+      "default": false,
+      "required": true
+    },
+    "number": {
+      "type": "integer",
+      "required": true,
+      "unique": true
+    }
+  }
+}
