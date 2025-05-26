@@ -395,12 +395,20 @@ export interface ApiBlockBlock extends Struct.CollectionTypeSchema {
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::block.block'> &
       Schema.Attribute.Private;
+    media: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios',
+      true
+    >;
     name: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.Unique;
     publishedAt: Schema.Attribute.DateTime;
+    rich_texts: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::rich-text.rich-text'
+    >;
     type: Schema.Attribute.Enumeration<
-      ['billboard', 'headline', 'image', 'highlight']
+      ['billboard', 'headline', 'image', 'highlight', 'richtext']
     > &
       Schema.Attribute.Required;
     updatedAt: Schema.Attribute.DateTime;
@@ -503,13 +511,40 @@ export interface ApiPagePage extends Struct.CollectionTypeSchema {
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::page.page'> &
       Schema.Attribute.Private;
-    pageBlocks: Schema.Attribute.DynamicZone<
-      ['shared.highlight', 'shared.rich-text']
-    >;
     publishedAt: Schema.Attribute.DateTime;
     seo: Schema.Attribute.Component<'shared.seo', false>;
     slug: Schema.Attribute.UID & Schema.Attribute.Required;
     title: Schema.Attribute.String & Schema.Attribute.Required;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiRichTextRichText extends Struct.CollectionTypeSchema {
+  collectionName: 'rich_texts';
+  info: {
+    description: '';
+    displayName: 'RichText';
+    pluralName: 'rich-texts';
+    singularName: 'rich-text';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::rich-text.rich-text'
+    > &
+      Schema.Attribute.Private;
+    name: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
+    richText: Schema.Attribute.Blocks;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1067,6 +1102,7 @@ declare module '@strapi/strapi' {
       'api::category.category': ApiCategoryCategory;
       'api::highlight.highlight': ApiHighlightHighlight;
       'api::page.page': ApiPagePage;
+      'api::rich-text.rich-text': ApiRichTextRichText;
       'api::rustico.rustico': ApiRusticoRustico;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
