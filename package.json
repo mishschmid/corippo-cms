@@ -20,7 +20,7 @@
     "@strapi/plugin-graphql": "^5.29.0",
     "@strapi/plugin-users-permissions": "5.29.0",
     "@strapi/strapi": "5.29.0",
-    "better-sqlite3": "11.3.0",
+    "better-sqlite3": "^12.4.1",
     "fs-extra": "^10.0.0",
     "mime-types": "^2.1.27",
     "react": "^18.0.0",
@@ -37,6 +37,9 @@
   "engines": {
     "node": ">=18.0.0 <=22.x.x",
     "npm": ">=6.0.0"
+  },
+  "volta": {
+    "node": "20.19.2"
   },
   "strapi": {
     "uuid": "7d935bf3-8687-4e8b-af8e-8f878381bcd1",
