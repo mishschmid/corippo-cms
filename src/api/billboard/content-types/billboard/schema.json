@@ -1,0 +1,37 @@
+{
+  "kind": "collectionType",
+  "collectionName": "billboards",
+  "info": {
+    "singularName": "billboard",
+    "pluralName": "billboards",
+    "displayName": "Billboard"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "eyebrow": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "subtitle": {
+      "type": "string"
+    },
+    "media": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::media.media"
+    },
+    "fullwidth": {
+      "type": "boolean",
+      "default": true
+    }
+  }
+}

@@ -10,6 +10,7 @@
     "options": {
         "draftAndPublish": true
     },
+    "pluginOptions": {},
     "attributes": {
         "name": {
             "type": "string",
@@ -18,14 +19,14 @@
         },
         "type": {
             "type": "enumeration",
+            "required": true,
             "enum": [
                 "billboard",
                 "headline",
                 "image",
                 "highlight",
                 "richtext"
-            ],
-            "required": true
+            ]
         },
         "highlight": {
             "type": "relation",
@@ -41,6 +42,11 @@
             "type": "relation",
             "relation": "oneToMany",
             "target": "api::media.media"
+        },
+        "billboard": {
+            "type": "relation",
+            "relation": "oneToOne",
+            "target": "api::billboard.billboard"
         }
     }
 }

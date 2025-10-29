@@ -430,6 +430,39 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiBillboardBillboard extends Struct.CollectionTypeSchema {
+  collectionName: 'billboards';
+  info: {
+    displayName: 'Billboard';
+    pluralName: 'billboards';
+    singularName: 'billboard';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    eyebrow: Schema.Attribute.String;
+    fullwidth: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::billboard.billboard'
+    > &
+      Schema.Attribute.Private;
+    media: Schema.Attribute.Relation<'oneToOne', 'api::media.media'>;
+    name: Schema.Attribute.String & Schema.Attribute.Required;
+    publishedAt: Schema.Attribute.DateTime;
+    subtitle: Schema.Attribute.String;
+    title: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiBlockBlock extends Struct.CollectionTypeSchema {
   collectionName: 'blocks';
   info: {
@@ -442,6 +475,10 @@ export interface ApiBlockBlock extends Struct.CollectionTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
+    billboard: Schema.Attribute.Relation<
+      'oneToOne',
+      'api::billboard.billboard'
+    >;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1181,6 +1218,7 @@ declare module '@strapi/strapi' {
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
+      'api::billboard.billboard': ApiBillboardBillboard;
       'api::block.block': ApiBlockBlock;
       'api::category.category': ApiCategoryCategory;
       'api::highlight.highlight': ApiHighlightHighlight;
