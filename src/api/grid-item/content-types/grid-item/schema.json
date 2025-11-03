@@ -1,0 +1,44 @@
+{
+  "kind": "collectionType",
+  "collectionName": "grid_items",
+  "info": {
+    "singularName": "grid-item",
+    "pluralName": "grid-items",
+    "displayName": "GridItem"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "block": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::block.block"
+    },
+    "startdesktop": {
+      "type": "integer",
+      "required": true,
+      "default": 1,
+      "min": 1,
+      "max": 11
+    },
+    "enddesktop": {
+      "type": "integer",
+      "required": true,
+      "default": 2,
+      "min": 2,
+      "max": 12
+    },
+    "gridrow": {
+      "type": "integer",
+      "required": true,
+      "default": 1,
+      "min": 1
+    }
+  }
+}

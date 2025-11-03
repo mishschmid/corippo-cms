@@ -482,10 +482,12 @@ export interface ApiBlockBlock extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    highlight: Schema.Attribute.Relation<
-      'oneToOne',
+    grid: Schema.Attribute.Relation<'oneToOne', 'api::grid.grid'>;
+    highlights: Schema.Attribute.Relation<
+      'oneToMany',
       'api::highlight.highlight'
     >;
+    listing: Schema.Attribute.Relation<'oneToOne', 'api::listing.listing'>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::block.block'> &
       Schema.Attribute.Private;
@@ -499,12 +501,22 @@ export interface ApiBlockBlock extends Struct.CollectionTypeSchema {
       'api::rich-text.rich-text'
     >;
     type: Schema.Attribute.Enumeration<
-      ['billboard', 'headline', 'image', 'highlight', 'richtext']
+      [
+        'billboard',
+        'grid',
+        'headline',
+        'highlight',
+        'image',
+        'listing',
+        'richtext',
+        'video',
+      ]
     > &
       Schema.Attribute.Required;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    video: Schema.Attribute.Relation<'oneToOne', 'api::video.video'>;
   };
 }
 
@@ -533,6 +545,93 @@ export interface ApiCategoryCategory extends Struct.CollectionTypeSchema {
     name: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
     slug: Schema.Attribute.UID;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiGridItemGridItem extends Struct.CollectionTypeSchema {
+  collectionName: 'grid_items';
+  info: {
+    displayName: 'GridItem';
+    pluralName: 'grid-items';
+    singularName: 'grid-item';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    block: Schema.Attribute.Relation<'oneToOne', 'api::block.block'>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    enddesktop: Schema.Attribute.Integer &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 12;
+          min: 2;
+        },
+        number
+      > &
+      Schema.Attribute.DefaultTo<2>;
+    gridrow: Schema.Attribute.Integer &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMax<
+        {
+          min: 1;
+        },
+        number
+      > &
+      Schema.Attribute.DefaultTo<1>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::grid-item.grid-item'
+    > &
+      Schema.Attribute.Private;
+    name: Schema.Attribute.String & Schema.Attribute.Required;
+    publishedAt: Schema.Attribute.DateTime;
+    startdesktop: Schema.Attribute.Integer &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 11;
+          min: 1;
+        },
+        number
+      > &
+      Schema.Attribute.DefaultTo<1>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiGridGrid extends Struct.CollectionTypeSchema {
+  collectionName: 'grids';
+  info: {
+    displayName: 'Grid';
+    pluralName: 'grids';
+    singularName: 'grid';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    grid_items: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::grid-item.grid-item'
+    >;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::grid.grid'> &
+      Schema.Attribute.Private;
+    name: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -577,6 +676,39 @@ export interface ApiHighlightHighlight extends Struct.CollectionTypeSchema {
       Schema.Attribute.Required &
       Schema.Attribute.Unique;
     title: Schema.Attribute.String & Schema.Attribute.Required;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiListingListing extends Struct.CollectionTypeSchema {
+  collectionName: 'listings';
+  info: {
+    displayName: 'Listing';
+    pluralName: 'listings';
+    singularName: 'listing';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    intro: Schema.Attribute.Relation<'oneToOne', 'api::rich-text.rich-text'>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::listing.listing'
+    > &
+      Schema.Attribute.Private;
+    name: Schema.Attribute.String & Schema.Attribute.Required;
+    picture_blocks: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::picture-block.picture-block'
+    >;
+    publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -634,6 +766,37 @@ export interface ApiPagePage extends Struct.CollectionTypeSchema {
     seo: Schema.Attribute.Component<'shared.seo', false>;
     slug: Schema.Attribute.UID & Schema.Attribute.Required;
     title: Schema.Attribute.String & Schema.Attribute.Required;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiPictureBlockPictureBlock
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'picture_blocks';
+  info: {
+    displayName: 'PictureBlock';
+    pluralName: 'picture-blocks';
+    singularName: 'picture-block';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::picture-block.picture-block'
+    > &
+      Schema.Attribute.Private;
+    name: Schema.Attribute.String;
+    pictures: Schema.Attribute.Relation<'oneToMany', 'api::media.media'>;
+    publishedAt: Schema.Attribute.DateTime;
+    title: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -705,6 +868,32 @@ export interface ApiRusticoRustico extends Struct.CollectionTypeSchema {
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+  };
+}
+
+export interface ApiVideoVideo extends Struct.CollectionTypeSchema {
+  collectionName: 'videos';
+  info: {
+    displayName: 'Video';
+    pluralName: 'videos';
+    singularName: 'video';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::video.video'> &
+      Schema.Attribute.Private;
+    name: Schema.Attribute.String & Schema.Attribute.Required;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    url: Schema.Attribute.String & Schema.Attribute.Required;
   };
 }
 
@@ -1221,11 +1410,16 @@ declare module '@strapi/strapi' {
       'api::billboard.billboard': ApiBillboardBillboard;
       'api::block.block': ApiBlockBlock;
       'api::category.category': ApiCategoryCategory;
+      'api::grid-item.grid-item': ApiGridItemGridItem;
+      'api::grid.grid': ApiGridGrid;
       'api::highlight.highlight': ApiHighlightHighlight;
+      'api::listing.listing': ApiListingListing;
       'api::media.media': ApiMediaMedia;
       'api::page.page': ApiPagePage;
+      'api::picture-block.picture-block': ApiPictureBlockPictureBlock;
       'api::rich-text.rich-text': ApiRichTextRichText;
       'api::rustico.rustico': ApiRusticoRustico;
+      'api::video.video': ApiVideoVideo;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;

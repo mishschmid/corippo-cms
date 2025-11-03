@@ -1,0 +1,26 @@
+{
+    "kind": "collectionType",
+    "collectionName": "picture_blocks",
+    "info": {
+        "singularName": "picture-block",
+        "pluralName": "picture-blocks",
+        "displayName": "PictureBlock"
+    },
+    "options": {
+        "draftAndPublish": true
+    },
+    "pluginOptions": {},
+    "attributes": {
+        "name": {
+            "type": "string"
+        },
+        "title": {
+            "type": "string"
+        },
+        "pictures": {
+            "type": "relation",
+            "relation": "oneToMany",
+            "target": "api::media.media"
+        }
+    }
+}

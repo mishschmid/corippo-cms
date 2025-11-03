@@ -22,15 +22,18 @@
       "required": true,
       "enum": [
         "billboard",
+        "grid",
         "headline",
-        "image",
         "highlight",
-        "richtext"
+        "image",
+        "listing",
+        "richtext",
+        "video"
       ]
     },
-    "highlight": {
+    "highlights": {
       "type": "relation",
-      "relation": "oneToOne",
+      "relation": "oneToMany",
       "target": "api::highlight.highlight"
     },
     "rich_texts": {
@@ -47,6 +50,21 @@
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::billboard.billboard"
+    },
+    "grid": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::grid.grid"
+    },
+    "video": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::video.video"
+    },
+    "listing": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::listing.listing"
     }
   }
 }

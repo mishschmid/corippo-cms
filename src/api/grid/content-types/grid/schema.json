@@ -1,0 +1,23 @@
+{
+  "kind": "collectionType",
+  "collectionName": "grids",
+  "info": {
+    "singularName": "grid",
+    "pluralName": "grids",
+    "displayName": "Grid"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "grid_items": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::grid-item.grid-item"
+    }
+  }
+}

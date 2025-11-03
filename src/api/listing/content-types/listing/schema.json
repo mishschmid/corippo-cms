@@ -1,0 +1,29 @@
+{
+  "kind": "collectionType",
+  "collectionName": "listings",
+  "info": {
+    "singularName": "listing",
+    "pluralName": "listings",
+    "displayName": "Listing"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "intro": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::rich-text.rich-text"
+    },
+    "picture_blocks": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::picture-block.picture-block"
+    }
+  }
+}
